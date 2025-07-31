@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Question } from "@/data/curriculum/types";
+import { Star, BrainCircuit } from "lucide-react";
 
 interface QuestionUIProps {
   question: Question;
@@ -12,14 +13,17 @@ interface QuestionUIProps {
 const QuestionUI = ({ question, onAnswer }: QuestionUIProps) => {
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const [isAnswered, setIsAnswered] = useState(false);
-  const { i18n } = useTranslation();
+  const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
+  const { i18n, t } = useTranslation();
   const lang = i18n.language.startsWith('hi') ? 'hi' : 'en';
 
   const handleOptionClick = (index: number) => {
     if (isAnswered) return;
+    const correct = index === question.correct_answer_index;
     setSelectedOption(index);
     setIsAnswered(true);
-    onAnswer(index === question.correct_answer_index);
+    setIsCorrect(correct);
+    onAnswer(correct);
   };
 
   const getButtonClass = (index: number) => {
@@ -33,7 +37,23 @@ const QuestionUI = ({ question, onAnswer }: QuestionUIProps) => {
     <Card className="w-full max-w-2xl mx-auto">
       <CardHeader>
         <CardTitle className="text-2xl text-center">{question.question_text[lang]}</CardTitle>
-        <CardDescription className="text-center">Choose the correct answer</CardDescription>
+        {isAnswered && isCorrect !== null ? (
+          <div className="flex justify-center items-center pt-4">
+            {isCorrect ? (
+              <div className="flex items-center text-green-500">
+                <Star className="w-8 h-8 mr-2 animate-pulse" />
+                <span className="font-bold text-lg">{t('correct_answer_feedback')}</span>
+              </div>
+            ) : (
+              <div className="flex items-center text-red-500">
+                <BrainCircuit className="w-8 h-8 mr-2" />
+                <span className="font-bold text-lg">{t('incorrect_answer_feedback')}</span>
+              </div>
+            )}
+          </div>
+        ) : (
+          <CardDescription className="text-center">Choose the correct answer</CardDescription>
+        )}
       </CardHeader>
       <CardContent>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

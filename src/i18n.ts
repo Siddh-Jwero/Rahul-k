@@ -25,6 +25,10 @@ const resources = {
       "teacher_login_desc": "Login to continue to your dashboard.",
       "password_label": "Password",
       "incorrect_password_error": "Incorrect username or password.",
+
+      // Quiz Audio Feedback
+      "correct_answer_feedback": "Correct! Well done.",
+      "incorrect_answer_feedback": "That's not quite right. Let's try the next one.",
     }
   },
   hi: {
@@ -49,6 +53,10 @@ const resources = {
       "teacher_login_desc": "अपने डैशबोर्ड पर जाने के लिए लॉगिन करें।",
       "password_label": "पासवर्ड",
       "incorrect_password_error": "गलत उपयोगकर्ता नाम या पासवर्ड।",
+
+      // Quiz Audio Feedback
+      "correct_answer_feedback": "सही जवाब! शाबाश।",
+      "incorrect_answer_feedback": "यह सही नहीं है। चलो अगला सवाल देखते हैं।",
     }
   }
 };

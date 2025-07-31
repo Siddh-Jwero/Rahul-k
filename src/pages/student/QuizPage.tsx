@@ -11,13 +11,23 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 const QuizPage = () => {
   const { topicId } = useParams();
   const navigate = useNavigate();
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   const lang = i18n.language.startsWith('hi') ? 'hi' : 'en';
+  const voiceLang = i18n.language.startsWith('hi') ? 'hi-IN' : 'en-US';
 
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [score, setScore] = useState(0);
   const [showNextButton, setShowNextButton] = useState(false);
   const [quizFinished, setQuizFinished] = useState(false);
+
+  const speak = (text: string) => {
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.cancel(); // Cancel any previous speech
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = voiceLang;
+      window.speechSynthesis.speak(utterance);
+    }
+  };
 
   let topic;
   let topicQuestions = [];
@@ -41,11 +51,27 @@ const QuizPage = () => {
     if (!storedStudent) {
       navigate("/student/login");
     }
+    // Stop speech when component unmounts
+    return () => {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+      }
+    }
   }, [navigate]);
+
+  useEffect(() => {
+    if (topicQuestions.length > 0 && !quizFinished) {
+      const questionText = topicQuestions[currentQuestionIndex].question_text[lang];
+      speak(questionText);
+    }
+  }, [currentQuestionIndex, topicQuestions, lang, quizFinished]);
 
   const handleAnswer = (isCorrect: boolean) => {
     if (isCorrect) {
       setScore(score + 10);
+      speak(t('correct_answer_feedback'));
+    } else {
+      speak(t('incorrect_answer_feedback'));
     }
     setShowNextButton(true);
   };
@@ -101,6 +127,7 @@ const QuizPage = () => {
           <p className="text-center mt-2 text-sm text-gray-600">Question {currentQuestionIndex + 1} / {topicQuestions.length}</p>
         </div>
         <QuestionUI
+          key={currentQuestionIndex}
           question={topicQuestions[currentQuestionIndex]}
           onAnswer={handleAnswer}
         />
