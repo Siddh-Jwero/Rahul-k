@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import Header from "@/components/Header";
 import SubjectCard from "@/components/SubjectCard";
-import { curriculum } from "@/data/curriculum";
+import { curriculum } from "@/data/curriculum/index";
 import { progress } from "@/data/users";
 import { Star, Award } from "lucide-react";
 import { Button } from "@/components/ui/button";

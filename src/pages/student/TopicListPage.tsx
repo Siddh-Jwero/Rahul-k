@@ -1,7 +1,7 @@
 import { useParams, Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import Header from "@/components/Header";
-import { curriculum } from "@/data/curriculum";
+import { curriculum } from "@/data/curriculum/index";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 

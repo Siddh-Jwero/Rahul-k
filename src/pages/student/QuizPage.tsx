@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import Header from "@/components/Header";
 import QuestionUI from "@/components/QuestionUI";
-import { curriculum } from "@/data/curriculum";
+import { curriculum } from "@/data/curriculum/index";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
