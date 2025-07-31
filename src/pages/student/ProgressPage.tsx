@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "@/components/Header";
-import { progress } from "@/data/studentMockData";
+import { progress } from "@/data/users";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Star, Award } from "lucide-react";
 

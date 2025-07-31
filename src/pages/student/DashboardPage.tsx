@@ -2,13 +2,15 @@ import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import Header from "@/components/Header";
 import SubjectCard from "@/components/SubjectCard";
-import { subjects, progress } from "@/data/studentMockData";
+import { curriculum } from "@/data/curriculum";
+import { progress } from "@/data/users";
 import { Star, Award } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 interface Student {
   id: number;
   name: string;
+  class: string;
 }
 
 const StudentDashboardPage = () => {
@@ -29,6 +31,8 @@ const StudentDashboardPage = () => {
   }
 
   const studentProgress = progress[student.id] || { stars: 0, badges: [] };
+  const classLevel = curriculum.find(c => c.id === Number(student.class));
+  const subjects = classLevel ? classLevel.subjects : [];
 
   return (
     <div className="flex flex-col items-center min-h-screen bg-gray-50">

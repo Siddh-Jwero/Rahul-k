@@ -2,21 +2,36 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Header from "@/components/Header";
 import QuestionUI from "@/components/QuestionUI";
-import { questions, subjects } from "@/data/studentMockData";
+import { curriculum } from "@/data/curriculum";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 const QuizPage = () => {
-  const { subjectId } = useParams();
+  const { topicId } = useParams();
   const navigate = useNavigate();
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [score, setScore] = useState(0);
   const [showNextButton, setShowNextButton] = useState(false);
   const [quizFinished, setQuizFinished] = useState(false);
 
-  const subjectQuestions = questions.filter(q => q.subjectId === Number(subjectId));
-  const subject = subjects.find(s => s.id === Number(subjectId));
+  // Find the topic and its questions from the curriculum data
+  let topic;
+  let topicQuestions = [];
+  for (const classLevel of curriculum) {
+    for (const subject of classLevel.subjects) {
+      for (const chapter of subject.chapters) {
+        const foundTopic = chapter.topics.find(t => t.id === Number(topicId));
+        if (foundTopic) {
+          topic = foundTopic;
+          topicQuestions = foundTopic.questions;
+          break;
+        }
+      }
+      if (topic) break;
+    }
+    if (topic) break;
+  }
 
   useEffect(() => {
     const storedStudent = localStorage.getItem("gyanoday-student");
@@ -34,15 +49,15 @@ const QuizPage = () => {
 
   const handleNextQuestion = () => {
     setShowNextButton(false);
-    if (currentQuestionIndex < subjectQuestions.length - 1) {
+    if (currentQuestionIndex < topicQuestions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
     } else {
       setQuizFinished(true);
     }
   };
 
-  if (!subject) {
-    return <div>Subject not found.</div>;
+  if (!topic) {
+    return <div>Topic not found.</div>;
   }
 
   if (quizFinished) {
@@ -61,29 +76,29 @@ const QuizPage = () => {
     );
   }
 
-  if (subjectQuestions.length === 0) {
+  if (topicQuestions.length === 0) {
     return (
        <div className="flex flex-col items-center min-h-screen bg-gray-50">
-        <Header title={subject.name} showBackButton={true} />
+        <Header title={topic.name} showBackButton={true} />
         <main className="flex-grow flex items-center justify-center w-full p-4">
-          <p className="text-xl">No questions available for this subject.</p>
+          <p className="text-xl">No questions available for this topic.</p>
         </main>
       </div>
     )
   }
 
-  const progressValue = ((currentQuestionIndex + 1) / subjectQuestions.length) * 100;
+  const progressValue = ((currentQuestionIndex + 1) / topicQuestions.length) * 100;
 
   return (
     <div className="flex flex-col items-center min-h-screen bg-gray-50">
-      <Header title={subject.name} showBackButton={true} />
+      <Header title={topic.name} showBackButton={true} />
       <main className="flex-grow flex flex-col items-center justify-center w-full p-4">
         <div className="w-full max-w-2xl mb-4">
           <Progress value={progressValue} className="w-full" />
-          <p className="text-center mt-2 text-sm text-gray-600">Question {currentQuestionIndex + 1} / {subjectQuestions.length}</p>
+          <p className="text-center mt-2 text-sm text-gray-600">Question {currentQuestionIndex + 1} / {topicQuestions.length}</p>
         </div>
         <QuestionUI
-          question={subjectQuestions[currentQuestionIndex]}
+          question={topicQuestions[currentQuestionIndex]}
           onAnswer={handleAnswer}
         />
         {showNextButton && (

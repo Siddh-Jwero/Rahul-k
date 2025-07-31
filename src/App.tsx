@@ -9,6 +9,8 @@ import NotFound from "./pages/NotFound";
 // Student Pages
 import StudentLoginPage from "./pages/student/LoginPage";
 import StudentDashboardPage from "./pages/student/DashboardPage";
+import ChapterListPage from "./pages/student/ChapterListPage";
+import TopicListPage from "./pages/student/TopicListPage";
 import StudentQuizPage from "./pages/student/QuizPage";
 import StudentProgressPage from "./pages/student/ProgressPage";
 
@@ -31,7 +33,9 @@ const App = () => (
           {/* Student Routes */}
           <Route path="/student/login" element={<StudentLoginPage />} />
           <Route path="/student/dashboard" element={<StudentDashboardPage />} />
-          <Route path="/student/quiz/:subjectId" element={<StudentQuizPage />} />
+          <Route path="/student/subject/:subjectId" element={<ChapterListPage />} />
+          <Route path="/student/subject/:subjectId/chapter/:chapterId" element={<TopicListPage />} />
+          <Route path="/student/quiz/:topicId" element={<StudentQuizPage />} />
           <Route path="/student/progress" element={<StudentProgressPage />} />
 
           {/* Teacher Routes */}

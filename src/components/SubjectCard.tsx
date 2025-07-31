@@ -25,7 +25,7 @@ const SubjectCard = ({ id, name, icon, disabled = false }: SubjectCardProps) => 
   }
 
   return (
-    <Link to={`/student/quiz/${id}`}>
+    <Link to={`/student/subject/${id}`}>
       {content}
     </Link>
   );
