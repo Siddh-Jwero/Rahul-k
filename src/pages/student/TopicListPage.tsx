@@ -1,4 +1,5 @@
 import { useParams, Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import Header from "@/components/Header";
 import { curriculum } from "@/data/curriculum";
 import { Button } from "@/components/ui/button";
@@ -6,6 +7,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 const TopicListPage = () => {
   const { subjectId, chapterId } = useParams();
+  const { i18n } = useTranslation();
+  const lang = i18n.language.startsWith('hi') ? 'hi' : 'en';
 
   const studentData = JSON.parse(localStorage.getItem("gyanoday-student") || "{}");
   const classLevel = curriculum.find(c => c.id === Number(studentData.class));
@@ -25,7 +28,7 @@ const TopicListPage = () => {
 
   return (
     <div className="flex flex-col items-center min-h-screen bg-gray-50">
-      <Header title={chapter.name} showBackButton={true} />
+      <Header title={chapter.name[lang]} showBackButton={true} />
       <main className="w-full max-w-4xl p-4 md:p-8">
         <h2 className="text-2xl font-bold text-center mb-6">Choose a Topic to Start Quiz</h2>
         <Card>
@@ -36,7 +39,7 @@ const TopicListPage = () => {
             {chapter.topics.map(topic => (
               <Link key={topic.id} to={`/student/quiz/${topic.id}`}>
                 <Button className="w-full justify-start p-6 text-lg" variant="secondary">
-                  {topic.name}
+                  {topic.name[lang]}
                 </Button>
               </Link>
             ))}

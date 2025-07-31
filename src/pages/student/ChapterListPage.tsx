@@ -1,4 +1,5 @@
 import { useParams, useNavigate, Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import Header from "@/components/Header";
 import { curriculum } from "@/data/curriculum";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -6,6 +7,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 const ChapterListPage = () => {
   const { subjectId } = useParams();
   const navigate = useNavigate();
+  const { i18n } = useTranslation();
+  const lang = i18n.language.startsWith('hi') ? 'hi' : 'en';
 
   const studentData = JSON.parse(localStorage.getItem("gyanoday-student") || "{}");
   const classLevel = curriculum.find(c => c.id === Number(studentData.class));
@@ -24,7 +27,7 @@ const ChapterListPage = () => {
 
   return (
     <div className="flex flex-col items-center min-h-screen bg-gray-50">
-      <Header title={`Chapters in ${subject.name}`} showBackButton={true} />
+      <Header title={`${subject.name[lang]}`} showBackButton={true} />
       <main className="w-full max-w-4xl p-4 md:p-8">
         <h2 className="text-2xl font-bold text-center mb-6">Choose a Chapter</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -35,7 +38,7 @@ const ChapterListPage = () => {
                   <div className="text-6xl mx-auto">{chapter.icon}</div>
                 </CardHeader>
                 <CardContent>
-                  <CardTitle className="text-xl font-semibold">{chapter.name}</CardTitle>
+                  <CardTitle className="text-xl font-semibold">{chapter.name[lang]}</CardTitle>
                 </CardContent>
               </Card>
             </Link>

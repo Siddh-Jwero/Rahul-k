@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import Header from "@/components/Header";
 import QuestionUI from "@/components/QuestionUI";
 import { curriculum } from "@/data/curriculum";
@@ -10,12 +11,14 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 const QuizPage = () => {
   const { topicId } = useParams();
   const navigate = useNavigate();
+  const { i18n } = useTranslation();
+  const lang = i18n.language.startsWith('hi') ? 'hi' : 'en';
+
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [score, setScore] = useState(0);
   const [showNextButton, setShowNextButton] = useState(false);
   const [quizFinished, setQuizFinished] = useState(false);
 
-  // Find the topic and its questions from the curriculum data
   let topic;
   let topicQuestions = [];
   for (const classLevel of curriculum) {
@@ -42,7 +45,7 @@ const QuizPage = () => {
 
   const handleAnswer = (isCorrect: boolean) => {
     if (isCorrect) {
-      setScore(score + 10); // 10 points for each correct answer
+      setScore(score + 10);
     }
     setShowNextButton(true);
   };
@@ -79,7 +82,7 @@ const QuizPage = () => {
   if (topicQuestions.length === 0) {
     return (
        <div className="flex flex-col items-center min-h-screen bg-gray-50">
-        <Header title={topic.name} showBackButton={true} />
+        <Header title={topic.name[lang]} showBackButton={true} />
         <main className="flex-grow flex items-center justify-center w-full p-4">
           <p className="text-xl">No questions available for this topic.</p>
         </main>
@@ -91,7 +94,7 @@ const QuizPage = () => {
 
   return (
     <div className="flex flex-col items-center min-h-screen bg-gray-50">
-      <Header title={topic.name} showBackButton={true} />
+      <Header title={topic.name[lang]} showBackButton={true} />
       <main className="flex-grow flex flex-col items-center justify-center w-full p-4">
         <div className="w-full max-w-2xl mb-4">
           <Progress value={progressValue} className="w-full" />
