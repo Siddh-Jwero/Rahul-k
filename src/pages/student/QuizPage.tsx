@@ -42,7 +42,7 @@ const QuizPage = () => {
   };
 
   if (!subject) {
-    return <div>विषय नहीं मिला।</div>;
+    return <div>Subject not found.</div>;
   }
 
   if (quizFinished) {
@@ -50,11 +50,11 @@ const QuizPage = () => {
       <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4 text-center">
         <Card>
           <CardHeader>
-            <CardTitle className="text-4xl font-bold">क्विज़ समाप्त!</CardTitle>
+            <CardTitle className="text-4xl font-bold">Quiz Finished!</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-2xl mb-8">आपका स्कोर: <span className="font-bold text-green-600">{score}</span></p>
-            <Button onClick={() => navigate("/student/dashboard")}>डैशबोर्ड पर वापस जाएं</Button>
+            <p className="text-2xl mb-8">Your Score: <span className="font-bold text-green-600">{score}</span></p>
+            <Button onClick={() => navigate("/student/dashboard")}>Back to Dashboard</Button>
           </CardContent>
         </Card>
       </div>
@@ -66,7 +66,7 @@ const QuizPage = () => {
        <div className="flex flex-col items-center min-h-screen bg-gray-50">
         <Header title={subject.name} showBackButton={true} />
         <main className="flex-grow flex items-center justify-center w-full p-4">
-          <p className="text-xl">इस विषय के लिए कोई प्रश्न उपलब्ध नहीं है।</p>
+          <p className="text-xl">No questions available for this subject.</p>
         </main>
       </div>
     )
@@ -80,7 +80,7 @@ const QuizPage = () => {
       <main className="flex-grow flex flex-col items-center justify-center w-full p-4">
         <div className="w-full max-w-2xl mb-4">
           <Progress value={progressValue} className="w-full" />
-          <p className="text-center mt-2 text-sm text-gray-600">प्रश्न {currentQuestionIndex + 1} / {subjectQuestions.length}</p>
+          <p className="text-center mt-2 text-sm text-gray-600">Question {currentQuestionIndex + 1} / {subjectQuestions.length}</p>
         </div>
         <QuestionUI
           question={subjectQuestions[currentQuestionIndex]}
@@ -88,7 +88,7 @@ const QuizPage = () => {
         />
         {showNextButton && (
           <Button onClick={handleNextQuestion} className="mt-8 animate-pulse">
-            अगला प्रश्न &rarr;
+            Next Question &rarr;
           </Button>
         )}
       </main>

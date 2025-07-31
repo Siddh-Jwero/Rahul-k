@@ -20,7 +20,7 @@ const Header = ({ title, showBackButton = false, showLogoutButton = false }: Hea
       <div>
         {showBackButton && (
           <Button variant="ghost" onClick={() => navigate(-1)} className="mr-2 text-white hover:bg-blue-700">
-            &larr; वापस
+            &larr; Back
           </Button>
         )}
       </div>
@@ -28,7 +28,7 @@ const Header = ({ title, showBackButton = false, showLogoutButton = false }: Hea
       <div>
         {showLogoutButton && (
           <Button variant="destructive" onClick={handleLogout}>
-            लॉगआउट
+            Logout
           </Button>
         )}
       </div>

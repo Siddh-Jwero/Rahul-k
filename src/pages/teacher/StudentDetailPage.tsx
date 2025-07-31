@@ -22,8 +22,8 @@ const StudentDetailPage = () => {
   if (!details || !performance) {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen">
-        <p className="text-xl mb-4">स्टूडेंट का डेटा नहीं मिला।</p>
-        <Button onClick={() => navigate("/teacher/dashboard")}>डैशबोर्ड पर वापस जाएं</Button>
+        <p className="text-xl mb-4">Student data not found.</p>
+        <Button onClick={() => navigate("/teacher/dashboard")}>Back to Dashboard</Button>
       </div>
     );
   }
@@ -31,15 +31,15 @@ const StudentDetailPage = () => {
   return (
     <div className="min-h-screen bg-gray-100">
        <header className="bg-white shadow-sm p-4 flex justify-between items-center">
-        <h1 className="text-2xl font-bold text-gray-800">{details.name} की रिपोर्ट</h1>
-        <Button variant="outline" onClick={() => navigate(-1)}>&larr; वापस जाएं</Button>
+        <h1 className="text-2xl font-bold text-gray-800">{details.name}'s Report</h1>
+        <Button variant="outline" onClick={() => navigate(-1)}>&larr; Go Back</Button>
       </header>
       <main className="p-4 md:p-8">
         <div className="grid gap-8 lg:grid-cols-2">
           <Card>
             <CardHeader>
-              <CardTitle>विषय-वार प्रदर्शन</CardTitle>
-              <CardDescription>हर विषय में स्टूडेंट का स्कोर</CardDescription>
+              <CardTitle>Topic-wise Performance</CardTitle>
+              <CardDescription>Student's score in each topic</CardDescription>
             </CardHeader>
             <CardContent>
               <PerformanceChart data={details.topic_wise_performance} />
@@ -47,8 +47,8 @@ const StudentDetailPage = () => {
           </Card>
           <Card>
             <CardHeader>
-              <CardTitle>AI इनसाइट</CardTitle>
-              <CardDescription>AI द्वारा दी गई सलाह</CardDescription>
+              <CardTitle>AI Insight</CardTitle>
+              <CardDescription>Advice provided by AI</CardDescription>
             </CardHeader>
             <CardContent>
               <p className="text-lg leading-relaxed p-4 bg-blue-50 border-l-4 border-blue-500 text-blue-800 rounded">

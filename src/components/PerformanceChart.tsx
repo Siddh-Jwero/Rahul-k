@@ -18,7 +18,7 @@ const PerformanceChart = ({ data }: PerformanceChartProps) => {
         <YAxis />
         <Tooltip />
         <Legend />
-        <Bar dataKey="score" fill="#3b82f6" name="स्कोर" />
+        <Bar dataKey="score" fill="#3b82f6" name="Score" />
       </BarChart>
     </ResponsiveContainer>
   );

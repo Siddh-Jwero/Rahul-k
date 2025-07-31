@@ -24,18 +24,18 @@ const StudentProgressPage = () => {
   }, [navigate]);
 
   if (!student) {
-    return <div className="flex items-center justify-center min-h-screen">लोड हो रहा है...</div>;
+    return <div className="flex items-center justify-center min-h-screen">Loading...</div>;
   }
 
   const studentProgress = progress[student.id] || { stars: 0, badges: [] };
 
   return (
     <div className="flex flex-col items-center min-h-screen bg-gray-50">
-      <Header title="आपकी प्रगति" showBackButton={true} />
+      <Header title="Your Progress" showBackButton={true} />
       <main className="w-full max-w-4xl p-4 md:p-8">
         <Card className="mb-8">
           <CardHeader>
-            <CardTitle className="flex items-center"><Star className="w-6 h-6 mr-2 text-yellow-500" /> कुल सितारे</CardTitle>
+            <CardTitle className="flex items-center"><Star className="w-6 h-6 mr-2 text-yellow-500" /> Total Stars</CardTitle>
           </CardHeader>
           <CardContent>
             <p className="text-5xl font-bold text-yellow-500">{studentProgress.stars}</p>
@@ -44,7 +44,7 @@ const StudentProgressPage = () => {
 
         <Card>
           <CardHeader>
-            <CardTitle className="flex items-center"><Award className="w-6 h-6 mr-2 text-blue-600" /> आपके बैज</CardTitle>
+            <CardTitle className="flex items-center"><Award className="w-6 h-6 mr-2 text-blue-600" /> Your Badges</CardTitle>
           </CardHeader>
           <CardContent>
             {studentProgress.badges.length > 0 ? (
@@ -54,7 +54,7 @@ const StudentProgressPage = () => {
                 ))}
               </ul>
             ) : (
-              <p>आपने अभी तक कोई बैज नहीं जीता है। सीखते रहें!</p>
+              <p>You haven't earned any badges yet. Keep learning!</p>
             )}
           </CardContent>
         </Card>

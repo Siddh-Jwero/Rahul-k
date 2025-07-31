@@ -33,7 +33,7 @@ const QuestionUI = ({ question, onAnswer }: QuestionUIProps) => {
     <Card className="w-full max-w-2xl mx-auto">
       <CardHeader>
         <CardTitle className="text-2xl text-center">{question.question_text}</CardTitle>
-        <CardDescription className="text-center">सही उत्तर चुनें</CardDescription>
+        <CardDescription className="text-center">Choose the correct answer</CardDescription>
       </CardHeader>
       <CardContent>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

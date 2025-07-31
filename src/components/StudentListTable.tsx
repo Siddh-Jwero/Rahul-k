@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 interface Student {
   id: number;
   name: string;
-  overall_status: 'अच्छा' | 'औसत' | 'कमजोर';
+  overall_status: 'Good' | 'Average' | 'Needs Improvement';
   last_active: string;
 }
 
@@ -14,9 +14,9 @@ interface StudentListTableProps {
 }
 
 const statusColorMap = {
-  'अच्छा': 'bg-green-500',
-  'औसत': 'bg-yellow-500',
-  'कमजोर': 'bg-red-500',
+  'Good': 'bg-green-500',
+  'Average': 'bg-yellow-500',
+  'Needs Improvement': 'bg-red-500',
 };
 
 const StudentListTable = ({ students }: StudentListTableProps) => {
@@ -24,10 +24,10 @@ const StudentListTable = ({ students }: StudentListTableProps) => {
     <Table>
       <TableHeader>
         <TableRow>
-          <TableHead>नाम</TableHead>
-          <TableHead>स्टेटस</TableHead>
-          <TableHead>पिछली एक्टिविटी</TableHead>
-          <TableHead className="text-right">एक्शन</TableHead>
+          <TableHead>Name</TableHead>
+          <TableHead>Status</TableHead>
+          <TableHead>Last Active</TableHead>
+          <TableHead className="text-right">Action</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -40,7 +40,7 @@ const StudentListTable = ({ students }: StudentListTableProps) => {
             <TableCell>{student.last_active}</TableCell>
             <TableCell className="text-right">
               <Link to={`/teacher/student/${student.id}`} className="text-blue-600 hover:underline">
-                विवरण देखें
+                View Details
               </Link>
             </TableCell>
           </TableRow>

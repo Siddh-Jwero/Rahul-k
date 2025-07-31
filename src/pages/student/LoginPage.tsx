@@ -19,7 +19,7 @@ const StudentLoginPage = () => {
       localStorage.setItem("gyanoday-student", JSON.stringify(student));
       navigate("/student/dashboard");
     } else {
-      showError("गलत यूजरनेम या पिन।");
+      showError("Incorrect username or PIN.");
     }
   };
 
@@ -27,24 +27,24 @@ const StudentLoginPage = () => {
     <div className="flex items-center justify-center min-h-screen bg-gray-100 p-4">
       <Card className="w-full max-w-sm">
         <CardHeader>
-          <CardTitle className="text-2xl">स्टूडेंट लॉगिन</CardTitle>
-          <CardDescription>शुरू करने के लिए अपना यूजरनेम और पिन डालें।</CardDescription>
+          <CardTitle className="text-2xl">Student Login</CardTitle>
+          <CardDescription>Enter your username and PIN to start.</CardDescription>
         </CardHeader>
         <form onSubmit={handleLogin}>
           <CardContent className="grid gap-4">
             <div className="grid gap-2">
-              <Label htmlFor="username">यूजरनेम</Label>
+              <Label htmlFor="username">Username</Label>
               <Input id="username" type="text" value={username} onChange={(e) => setUsername(e.target.value)} required />
             </div>
             <div className="grid gap-2">
-              <Label htmlFor="pin">4-अंकों का पिन</Label>
+              <Label htmlFor="pin">4-Digit PIN</Label>
               <Input id="pin" type="password" inputMode="numeric" pattern="\d{4}" maxLength={4} value={pin} onChange={(e) => setPin(e.target.value)} required />
             </div>
           </CardContent>
           <CardFooter className="flex flex-col gap-4">
-            <Button type="submit" className="w-full">लॉगिन करें</Button>
+            <Button type="submit" className="w-full">Login</Button>
             <Button variant="link" asChild>
-              <Link to="/">&larr; वापस जाएं</Link>
+              <Link to="/">&larr; Go Back</Link>
             </Button>
           </CardFooter>
         </form>
